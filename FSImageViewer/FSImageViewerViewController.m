@@ -36,6 +36,19 @@
     BOOL barsHidden;
     BOOL statusBarHidden;
     UIBarButtonItem *shareButton;
+    
+    BOOL _isOverlayButtonsOnImage;
+    NSMutableArray *overlayButtons;
+}
+
+- (BOOL)isOverlayButtonsOnImage
+{
+    return _isOverlayButtonsOnImage;
+}
+
+- (void)setOverlayButtonsOnImage:(BOOL)overlayButtonsOnImage
+{
+    _isOverlayButtonsOnImage = overlayButtonsOnImage;
 }
 
 - (instancetype)initWithImageSource:(id <FSImageSource>)aImageSource {
@@ -63,6 +76,8 @@
         self.sharingDisabled = NO;
         self.showNumberOfItemsInTitle = YES;
         self.rotationEnabled = YES;
+        
+        overlayButtons = [NSMutableArray array];
     }
     return self;
 }
@@ -71,6 +86,8 @@
     _scrollView.delegate = nil;
     [[FSImageLoader sharedInstance] cancelAllRequests];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [overlayButtons removeAllObjects];
 }
 
 - (void)viewDidLoad {
@@ -126,20 +143,52 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share:)];
-    shareButton.enabled = NO;
-    if (self.presentingViewController && (self.modalPresentationStyle == UIModalPresentationFullScreen)) {
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:[self localizedStringForKey:@"done" withDefault:@"Done"] style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
-        self.navigationItem.rightBarButtonItem = doneButton;
-        if (!_sharingDisabled) {
-            self.navigationItem.leftBarButtonItem = shareButton;
+    if (!self.overlayButtonsOnImage) {
+        shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share:)];
+        shareButton.enabled = NO;
+        if (self.presentingViewController && (self.modalPresentationStyle == UIModalPresentationFullScreen)) {
+            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:[self localizedStringForKey:@"done" withDefault:@"Done"] style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
+            self.navigationItem.rightBarButtonItem = doneButton;
+            if (!_sharingDisabled) {
+                self.navigationItem.leftBarButtonItem = shareButton;
+            }
+        }
+        else {
+            if (!_sharingDisabled) {
+                self.navigationItem.rightBarButtonItem = shareButton;
+            }
         }
     }
     else {
+        CGSize viewSize = self.view.bounds.size;
+        
+        if (self.presentingViewController && (self.modalPresentationStyle == UIModalPresentationFullScreen)) {
+            
+            UIButton* btnDone = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* doneImage = [UIImage imageNamed:@"FSImageViewer.bundle/icon-done"];
+            [btnDone setImage:doneImage forState:UIControlStateNormal];
+            btnDone.frame = CGRectMake(viewSize.width - (doneImage.size.width + 20), 20, MAX(45, doneImage.size.width), MAX(45, doneImage.size.height));
+            [btnDone addTarget:self action:@selector(done:) forControlEvents:UIControlEventTouchUpInside];
+            btnDone.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            [self.view addSubview:btnDone];
+            [overlayButtons addObject:btnDone];
+            [self.view bringSubviewToFront:btnDone];
+        }
+        
         if (!_sharingDisabled) {
-            self.navigationItem.rightBarButtonItem = shareButton;
+            UIButton* btnShare = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIImage* shareImage = [UIImage imageNamed:@"FSImageViewer.bundle/icon-share"];
+            [btnShare setImage:shareImage forState:UIControlStateNormal];
+            btnShare.frame = CGRectMake(20, viewSize.height - (shareImage.size.height + 20), MAX(45, shareImage.size.width), MAX(shareImage.size.height, 45));
+            [btnShare addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+            btnShare.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+            [self.view addSubview:btnShare];
+            [overlayButtons addObject:btnShare];
+            [self.view bringSubviewToFront:btnShare];
+            shareButton = [[UIBarButtonItem alloc] initWithCustomView:btnShare];
         }
     }
+
 
     [self setupScrollViewContentSize];
     [self moveToImageAtIndex:pageIndex animated:NO];
@@ -207,17 +256,23 @@
 }
 
 - (void)share:(id)sender {
-    id<FSImage> currentImage = _imageSource[[self currentImageIndex]];
-    NSAssert(currentImage.image, @"The image must be loaded to share.");
-    if (currentImage.image) {
-        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[currentImage.image] applicationActivities:_applicationActivities];
-        if([controller respondsToSelector:@selector(popoverPresentationController)]) {
-            if (!controller.popoverPresentationController.barButtonItem) {
-                controller.popoverPresentationController.barButtonItem = shareButton;
+    if (![self.delegate respondsToSelector:@selector(imageViewerViewController: didPressShareImageAtIndex:sender:)]) {
+        id<FSImage> currentImage = _imageSource[[self currentImageIndex]];
+        NSAssert(currentImage.image, @"The image must be loaded to share.");
+        if (currentImage.image) {
+            UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[currentImage.image] applicationActivities:_applicationActivities];
+            if([controller respondsToSelector:@selector(popoverPresentationController)]) {
+                if (!controller.popoverPresentationController.barButtonItem) {
+                    controller.popoverPresentationController.barButtonItem = shareButton;
+                }
             }
+            [self presentViewController:controller animated:YES completion:nil];
         }
-        [self presentViewController:controller animated:YES completion:nil];
     }
+    else {
+        [self.delegate imageViewerViewController:self didPressShareImageAtIndex:[self currentImageIndex] sender:sender];
+    }
+
 }
 
 - (NSInteger)currentImageIndex {
@@ -254,6 +309,10 @@
                 [imageView changeBackgroundColor:backgroundColor];;
                 [imageView changeProgressViewColor:hidden ? _progressColorHidden : _progressColorVisible];
             }
+        }
+        
+        for (UIButton *overlayBtn in overlayButtons) {
+            [overlayBtn setHidden:hidden];
         }
     }];
 

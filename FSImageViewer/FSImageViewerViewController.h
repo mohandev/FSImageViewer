@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)imageViewerViewController:(FSImageViewerViewController *)imageViewerViewController willDismissViewControllerAnimated:(BOOL)animated;
 - (void)imageViewerViewController:(FSImageViewerViewController *)imageViewerViewController didDismissViewControllerAnimated:(BOOL)animated;
 
+- (void)imageViewerViewController:(FSImageViewerViewController *)imageViewerViewController didPressShareImageAtIndex:(NSInteger)index sender:(id)sender;
+
 @end
 
 /// FSImageViewerViewController is an UIViewController which can present images.
@@ -91,6 +93,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Used to add additional items to the "share" button
 @property(strong, nonatomic, nullable) NSArray* applicationActivities;
+
+/**
+ Overlay the share & done button on the image itself!
+ */
+@property(assign, nonatomic, getter = isOverlayButtonsOnImage) BOOL overlayButtonsOnImage;
 
 /// Current index of the image displayed
 /// @return current index of the image displayed
