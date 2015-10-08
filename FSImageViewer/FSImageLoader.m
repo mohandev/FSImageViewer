@@ -22,13 +22,14 @@
 //  THE SOFTWARE.
 //
 
-#import <EGOCache/EGOCache.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "FSImageLoader.h"
-#import "AFHTTPRequestOperation.h"
+
+#import <SDWebImage/SDWebImageManager.h>
 
 @implementation FSImageLoader {
-    NSMutableArray *runningRequests;
+    // Key = Url, value = id <SDWebImageOperation>)
+    NSMutableDictionary *_runningImageOperations;
 }
 
 + (FSImageLoader *)sharedInstance {
@@ -43,8 +44,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.timeoutInterval = 30.0;
-        runningRequests = [[NSMutableArray alloc] init];
+        _runningImageOperations = [[NSMutableDictionary alloc] init];
     }
 
     return self;
@@ -55,82 +55,47 @@
 }
 
 - (void)cancelAllRequests {
-    for (AFHTTPRequestOperation *imageRequestOperation in runningRequests) {
-        [imageRequestOperation cancel];
-    }
+    [[SDWebImageManager sharedManager] cancelAll];
 }
 
 - (void)cancelRequestForUrl:(NSURL *)aURL {
-    for (AFHTTPRequestOperation *imageRequestOperation in runningRequests) {
-        if ([imageRequestOperation.request.URL isEqual:aURL]) {
-            [imageRequestOperation cancel];
-            break;
+    NSString *urlAbsoluteString = aURL.absoluteString.lowercaseString;
+    
+    if (urlAbsoluteString != nil) {
+        id <SDWebImageOperation> pendingImageRequest = [_runningImageOperations objectForKey:urlAbsoluteString];
+        
+        if (pendingImageRequest != nil) {
+            [_runningImageOperations removeObjectForKey:urlAbsoluteString];
+            
+            [pendingImageRequest cancel];
+            pendingImageRequest = nil;
         }
     }
 }
 
 - (void)loadImageForURL:(NSURL *)aURL progress:(void (^)(float progress))progress image:(void (^)(UIImage *image, NSError *error))imageBlock {
-
-    if (!aURL) {
-        NSError *error = [NSError errorWithDomain:@"de.felixschulze.fsimageloader" code:412 userInfo:@{
-                NSLocalizedDescriptionKey : @"You must set a url"
+    
+    [self cancelRequestForUrl:aURL]; // Cancel any existing image request if any!
+    
+    NSString *urlAbsoluteString = aURL.absoluteString;
+    
+    if (urlAbsoluteString != nil) {
+        id <SDWebImageOperation> runningOperation = [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:aURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            if (progress != nil) {
+                progress( ((float)receivedSize) / ((float)expectedSize) );
+            }
+        } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+            if (imageBlock != nil) {
+                imageBlock(image, error);
+            }
         }];
-        imageBlock(nil, error);
-    };
-    
-    NSString *urlString = [[aURL absoluteString] copy];
-    NSData *data = [urlString dataUsingEncoding:NSUTF8StringEncoding];
-    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(data.bytes, (CC_LONG)data.length, digest);
-    NSMutableString *urlStringSha1 = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
-        [urlStringSha1 appendFormat:@"%02x", digest[i]];
-    }
-    NSString *cacheKey = [NSString stringWithFormat:@"FSImageLoader-%@", [urlStringSha1 copy]];
-    UIImage *anImage = [[EGOCache globalCache] imageForKey:cacheKey];
-    
-    if (!anImage) {
-        // Deprecated cacheKey
-        NSString *deprecatedCacheKey = [NSString stringWithFormat:@"FSImageLoader-%lu", (unsigned long) [[aURL description] hash]];
-        anImage = [[EGOCache globalCache] imageForKey:deprecatedCacheKey];
-    }
-
-
-    if (anImage) {
-        if (imageBlock) {
-            imageBlock(anImage, nil);
-        }
+        
+        [_runningImageOperations setObject:runningOperation forKey:urlAbsoluteString];
     }
     else {
-        [self cancelRequestForUrl:aURL];
-
-        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:aURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:_timeoutInterval];
-        AFHTTPRequestOperation *imageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        imageRequestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-        [runningRequests addObject:imageRequestOperation];
-        __weak AFHTTPRequestOperation *imageRequestOperationForBlock = imageRequestOperation;
-
-        [imageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            UIImage *image = responseObject;
-            [[EGOCache globalCache] setImage:image forKey:cacheKey];
-            if (imageBlock) {
-                imageBlock(image, nil);
-            }
-            [runningRequests removeObject:imageRequestOperationForBlock];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (imageBlock) {
-                imageBlock(nil, error);
-            }
-            [runningRequests removeObject:imageRequestOperationForBlock];
-        }];
-        
-        [imageRequestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            if (progress) {
-                progress((float)totalBytesRead / totalBytesExpectedToRead);
-            }
-        }];
-        
-        [imageRequestOperation start];
+        if (imageBlock != nil) {
+            imageBlock(nil, [NSError errorWithDomain:@"FSImageLoaderErrorDomain" code:9999 userInfo:@{NSLocalizedDescriptionKey: @"URL is invalid!"}]);
+        }
     }
 }
 

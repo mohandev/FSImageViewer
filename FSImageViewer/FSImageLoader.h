@@ -29,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Download remote images with AFNetworking
 @interface FSImageLoader : NSObject
 
-/// Timeout for remote image downloading - Default is 30 seconds
-@property(assign, nonatomic) NSTimeInterval timeoutInterval;
+/// Timeout for remote image downloading - Set to 60 seconds
+@property(assign, nonatomic, readonly) NSTimeInterval timeoutInterval;
 
 /// Singleton getter
 + (FSImageLoader *)sharedInstance;
