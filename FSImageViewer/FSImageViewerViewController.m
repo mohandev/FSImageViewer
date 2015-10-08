@@ -118,7 +118,7 @@
         [self.view addSubview:_scrollView];
     }
 
-    if (!_titleView) {
+    if (!_titleView && !self.titleViewHidden) {
         [self setTitleView:[[FSImageTitleView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 1)]];
     }
 

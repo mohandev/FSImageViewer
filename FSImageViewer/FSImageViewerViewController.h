@@ -61,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// Title
 @property(strong, nonatomic, nullable) UIView<FSTitleView>* titleView;
 
+/**
+ Hide image title view!
+ */
+@property(assign, nonatomic, getter=isImageTitleViewHidden) BOOL imageTitleViewHidden; // Default NO
+
 /// Optional Delegate
 @property(weak, nonatomic, nullable) id<FSImageViewerViewControllerDelegate> delegate;
 
