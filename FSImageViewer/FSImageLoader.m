@@ -90,7 +90,9 @@
             }
         }];
         
-        [_runningImageOperations setObject:runningOperation forKey:urlAbsoluteString];
+        if (runningOperation != nil) {
+            [_runningImageOperations setObject:runningOperation forKey:urlAbsoluteString];
+        }
     }
     else {
         if (imageBlock != nil) {
