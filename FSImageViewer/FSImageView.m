@@ -328,7 +328,7 @@
 
 - (void)killScrollViewZoom {
 
-    if (!self.scrollView.zoomScale > 1.0f) return;
+    if (!(self.scrollView.zoomScale > 1.0f)) return;
 
     if (!self.imageView.image) {
         return;
@@ -435,7 +435,7 @@
         animation.duration = 0.3f;
         animation.removedOnCompletion = NO;
         animation.fillMode = kCAFillModeForwards;
-        animation.delegate = self;
+        animation.delegate = (id)self;
         [animation setValue:[NSNumber numberWithInt:202] forKey:@"AnimationType"];
         [self.layer addAnimation:animation forKey:@"RotateAnimation"];
     }
