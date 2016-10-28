@@ -82,11 +82,16 @@
     if (urlAbsoluteString != nil) {
         id <SDWebImageOperation> runningOperation = [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:aURL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             if (progress != nil) {
-                progress( ((float)receivedSize) / ((float)expectedSize) );
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    progress( ((float)receivedSize) / ((float)expectedSize) );
+                });
+                
             }
         } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
             if (imageBlock != nil) {
-                imageBlock(image, error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    imageBlock(image, error);
+                });
             }
         }];
         
