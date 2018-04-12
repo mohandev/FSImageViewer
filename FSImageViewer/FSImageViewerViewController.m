@@ -162,10 +162,9 @@
     else {
         CGSize viewSize = self.view.bounds.size;
         
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:self.class];
         if (self.presentingViewController && (self.modalPresentationStyle == UIModalPresentationFullScreen)) {
             UIButton* btnDone = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage* doneImage = [UIImage imageNamed:@"icon-done" inBundle:frameworkBundle compatibleWithTraitCollection:nil];
+            UIImage* doneImage = [FSImageViewerViewController getImageNamed:@"icon-done"];
             [btnDone setImage:doneImage forState:UIControlStateNormal];
             btnDone.frame = CGRectMake(viewSize.width - (doneImage.size.width + 20), 20, MAX(45, doneImage.size.width), MAX(45, doneImage.size.height));
             [btnDone addTarget:self action:@selector(done:) forControlEvents:UIControlEventTouchUpInside];
@@ -177,7 +176,7 @@
         
         if (!_sharingDisabled) {
             UIButton* btnShare = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage* shareImage = [UIImage imageNamed:@"icon-share" inBundle:frameworkBundle compatibleWithTraitCollection:nil];
+            UIImage* shareImage = [FSImageViewerViewController getImageNamed: @"icon-share"];
             [btnShare setImage:shareImage forState:UIControlStateNormal];
             btnShare.frame = CGRectMake(20, viewSize.height - (shareImage.size.height + 20), MAX(45, shareImage.size.width), MAX(shareImage.size.height, 45));
             [btnShare addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
@@ -597,9 +596,19 @@
                     break;
                 }
             }
-        }
+    }
     defaultString = [bundle localizedStringForKey:key value:defaultString table:nil];
     return [[NSBundle bundleForClass:[self class]] localizedStringForKey:key value:defaultString table:nil];
+}
+    
++ (UIImage *)getImageNamed:(NSString *)imageName {
+    static NSBundle *bundle = nil;
+    if (bundle == nil) {
+        NSString *bundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"FSImageViewer" ofType:@"bundle"];
+        bundle = [NSBundle bundleWithPath:bundlePath] ?: [NSBundle bundleForClass:[self class]];
+    }
+    
+    return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
 @end
