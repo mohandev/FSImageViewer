@@ -25,7 +25,11 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "FSImageLoader.h"
 
-#import <SDWebImage/SDWebImageManager.h>
+#ifdef COCOAPODS
+    #import <SDWebImage/SDWebImageManager.h>
+#else
+    #import <WebImage/SDWebImageManager.h>
+#endif
 
 @implementation FSImageLoader {
     // Key = Url, value = id <SDWebImageOperation>)

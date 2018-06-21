@@ -30,6 +30,12 @@
 #import "FSImage.h"
 #import "FSPlaceholderImages.h"
 
+//! Project version number for FSImageViewer.
+FOUNDATION_EXPORT double FSImageViewerVersionNumber;
+
+//! Project version string for FSImageViewer.
+FOUNDATION_EXPORT const unsigned char FSImageViewerVersionString[];
+
 #define kFSImageViewerToogleBarsNotificationKey @"FSImageViewerToggleBars"
 #define kFSImageViewerDidFinishedLoadingNotificationKey @"FSImageViewerDidFinishLoading"
 
