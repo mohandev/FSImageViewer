@@ -29,6 +29,8 @@
 #import "FSImageSource.h"
 #import "FSImage.h"
 #import "FSPlaceholderImages.h"
+#import "FSBasicImage.h"
+#import "FSBasicImageSource.h"
 
 //! Project version number for FSImageViewer.
 FOUNDATION_EXPORT double FSImageViewerVersionNumber;
