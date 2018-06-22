@@ -8,27 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		11A0A43820DCBDD4009D2C17 /* FSImageViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11A0A42020DCBDD4009D2C17 /* FSImageViewer.bundle */; };
-		11A0A43920DCBDD4009D2C17 /* FSImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42220DCBDD4009D2C17 /* FSImage.h */; };
-		11A0A43A20DCBDD4009D2C17 /* FSImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42320DCBDD4009D2C17 /* FSImageView.h */; };
+		11A0A43920DCBDD4009D2C17 /* FSImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42220DCBDD4009D2C17 /* FSImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A0A43A20DCBDD4009D2C17 /* FSImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42320DCBDD4009D2C17 /* FSImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A43B20DCBDD4009D2C17 /* FSBasicImageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A42420DCBDD4009D2C17 /* FSBasicImageSource.m */; };
-		11A0A43C20DCBDD4009D2C17 /* FSBasicImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42520DCBDD4009D2C17 /* FSBasicImage.h */; };
+		11A0A43C20DCBDD4009D2C17 /* FSBasicImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42520DCBDD4009D2C17 /* FSBasicImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A43D20DCBDD4009D2C17 /* FSPlaceholderImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A42620DCBDD4009D2C17 /* FSPlaceholderImages.m */; };
-		11A0A43E20DCBDD4009D2C17 /* FSImageTitleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42720DCBDD4009D2C17 /* FSImageTitleView.h */; };
-		11A0A43F20DCBDD4009D2C17 /* FSImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42820DCBDD4009D2C17 /* FSImageLoader.h */; };
-		11A0A44020DCBDD4009D2C17 /* FSImageViewerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42920DCBDD4009D2C17 /* FSImageViewerViewController.h */; };
+		11A0A43E20DCBDD4009D2C17 /* FSImageTitleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42720DCBDD4009D2C17 /* FSImageTitleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A0A43F20DCBDD4009D2C17 /* FSImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42820DCBDD4009D2C17 /* FSImageLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A0A44020DCBDD4009D2C17 /* FSImageViewerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42920DCBDD4009D2C17 /* FSImageViewerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A44120DCBDD4009D2C17 /* FSImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A42A20DCBDD4009D2C17 /* FSImageScrollView.m */; };
 		11A0A44220DCBDD4009D2C17 /* FSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A42B20DCBDD4009D2C17 /* FSImageView.m */; };
-		11A0A44320DCBDD4009D2C17 /* FSImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42C20DCBDD4009D2C17 /* FSImageSource.h */; };
-		11A0A44420DCBDD4009D2C17 /* FSBasicImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42D20DCBDD4009D2C17 /* FSBasicImageSource.h */; };
+		11A0A44320DCBDD4009D2C17 /* FSImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42C20DCBDD4009D2C17 /* FSImageSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A0A44420DCBDD4009D2C17 /* FSBasicImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42D20DCBDD4009D2C17 /* FSBasicImageSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A44520DCBDD4009D2C17 /* FSImageViewer-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A42E20DCBDD4009D2C17 /* FSImageViewer-Prefix.pch */; };
 		11A0A44620DCBDD4009D2C17 /* FSImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A42F20DCBDD4009D2C17 /* FSImageLoader.m */; };
-		11A0A44720DCBDD4009D2C17 /* FSPlaceholderImages.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43020DCBDD4009D2C17 /* FSPlaceholderImages.h */; };
+		11A0A44720DCBDD4009D2C17 /* FSPlaceholderImages.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43020DCBDD4009D2C17 /* FSPlaceholderImages.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A44820DCBDD4009D2C17 /* FSImageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A43120DCBDD4009D2C17 /* FSImageTitleView.m */; };
 		11A0A44920DCBDD4009D2C17 /* FSBasicImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A43220DCBDD4009D2C17 /* FSBasicImage.m */; };
-		11A0A44A20DCBDD4009D2C17 /* FSImageViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43320DCBDD4009D2C17 /* FSImageViewer.h */; };
-		11A0A44B20DCBDD4009D2C17 /* FSImageScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43420DCBDD4009D2C17 /* FSImageScrollView.h */; };
+		11A0A44A20DCBDD4009D2C17 /* FSImageViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43320DCBDD4009D2C17 /* FSImageViewer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A0A44B20DCBDD4009D2C17 /* FSImageScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43420DCBDD4009D2C17 /* FSImageScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A44C20DCBDD4009D2C17 /* FSImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A0A43520DCBDD4009D2C17 /* FSImageViewerViewController.m */; };
-		11A0A44E20DCBDD4009D2C17 /* FSTitleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43720DCBDD4009D2C17 /* FSTitleView.h */; };
+		11A0A44E20DCBDD4009D2C17 /* FSTitleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 11A0A43720DCBDD4009D2C17 /* FSTitleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11A0A45120DCC266009D2C17 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A0A44F20DCC266009D2C17 /* WebImage.framework */; };
 		11A0A45220DCC266009D2C17 /* UAProgressView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A0A45020DCC266009D2C17 /* UAProgressView.framework */; };
 /* End PBXBuildFile section */
@@ -105,27 +105,27 @@
 		11A0A42120DCBDD4009D2C17 /* FSImageViewer */ = {
 			isa = PBXGroup;
 			children = (
-				11A0A42220DCBDD4009D2C17 /* FSImage.h */,
-				11A0A42320DCBDD4009D2C17 /* FSImageView.h */,
-				11A0A42420DCBDD4009D2C17 /* FSBasicImageSource.m */,
 				11A0A42520DCBDD4009D2C17 /* FSBasicImage.h */,
-				11A0A42620DCBDD4009D2C17 /* FSPlaceholderImages.m */,
-				11A0A42720DCBDD4009D2C17 /* FSImageTitleView.h */,
-				11A0A42820DCBDD4009D2C17 /* FSImageLoader.h */,
-				11A0A42920DCBDD4009D2C17 /* FSImageViewerViewController.h */,
-				11A0A42A20DCBDD4009D2C17 /* FSImageScrollView.m */,
-				11A0A42B20DCBDD4009D2C17 /* FSImageView.m */,
-				11A0A42C20DCBDD4009D2C17 /* FSImageSource.h */,
 				11A0A42D20DCBDD4009D2C17 /* FSBasicImageSource.h */,
-				11A0A42E20DCBDD4009D2C17 /* FSImageViewer-Prefix.pch */,
-				11A0A42F20DCBDD4009D2C17 /* FSImageLoader.m */,
-				11A0A43020DCBDD4009D2C17 /* FSPlaceholderImages.h */,
-				11A0A43120DCBDD4009D2C17 /* FSImageTitleView.m */,
-				11A0A43220DCBDD4009D2C17 /* FSBasicImage.m */,
-				11A0A43320DCBDD4009D2C17 /* FSImageViewer.h */,
+				11A0A42220DCBDD4009D2C17 /* FSImage.h */,
+				11A0A42820DCBDD4009D2C17 /* FSImageLoader.h */,
 				11A0A43420DCBDD4009D2C17 /* FSImageScrollView.h */,
-				11A0A43520DCBDD4009D2C17 /* FSImageViewerViewController.m */,
+				11A0A42C20DCBDD4009D2C17 /* FSImageSource.h */,
+				11A0A42720DCBDD4009D2C17 /* FSImageTitleView.h */,
+				11A0A42320DCBDD4009D2C17 /* FSImageView.h */,
+				11A0A43320DCBDD4009D2C17 /* FSImageViewer.h */,
+				11A0A42920DCBDD4009D2C17 /* FSImageViewerViewController.h */,
+				11A0A43020DCBDD4009D2C17 /* FSPlaceholderImages.h */,
 				11A0A43720DCBDD4009D2C17 /* FSTitleView.h */,
+				11A0A43220DCBDD4009D2C17 /* FSBasicImage.m */,
+				11A0A42420DCBDD4009D2C17 /* FSBasicImageSource.m */,
+				11A0A42F20DCBDD4009D2C17 /* FSImageLoader.m */,
+				11A0A42A20DCBDD4009D2C17 /* FSImageScrollView.m */,
+				11A0A43120DCBDD4009D2C17 /* FSImageTitleView.m */,
+				11A0A42B20DCBDD4009D2C17 /* FSImageView.m */,
+				11A0A43520DCBDD4009D2C17 /* FSImageViewerViewController.m */,
+				11A0A42620DCBDD4009D2C17 /* FSPlaceholderImages.m */,
+				11A0A42E20DCBDD4009D2C17 /* FSImageViewer-Prefix.pch */,
 				11A0A43620DCBDD4009D2C17 /* Info.plist */,
 			);
 			path = FSImageViewer;
