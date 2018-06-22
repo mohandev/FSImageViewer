@@ -125,8 +125,8 @@
 				11A0A43320DCBDD4009D2C17 /* FSImageViewer.h */,
 				11A0A43420DCBDD4009D2C17 /* FSImageScrollView.h */,
 				11A0A43520DCBDD4009D2C17 /* FSImageViewerViewController.m */,
-				11A0A43620DCBDD4009D2C17 /* Info.plist */,
 				11A0A43720DCBDD4009D2C17 /* FSTitleView.h */,
+				11A0A43620DCBDD4009D2C17 /* Info.plist */,
 			);
 			path = FSImageViewer;
 			sourceTree = "<group>";
