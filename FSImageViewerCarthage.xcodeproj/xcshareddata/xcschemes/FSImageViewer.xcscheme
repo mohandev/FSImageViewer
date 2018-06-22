@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "0940"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,7 +17,7 @@
                BlueprintIdentifier = "01CBFD1820DBB390001DBADB"
                BuildableName = "FSImageViewer.framework"
                BlueprintName = "FSImageViewer"
-               ReferencedContainer = "container:FSImageViewer.xcodeproj">
+               ReferencedContainer = "container:FSImageViewerCarthage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +33,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -48,7 +48,7 @@
             BlueprintIdentifier = "01CBFD1820DBB390001DBADB"
             BuildableName = "FSImageViewer.framework"
             BlueprintName = "FSImageViewer"
-            ReferencedContainer = "container:FSImageViewer.xcodeproj">
+            ReferencedContainer = "container:FSImageViewerCarthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,7 +66,7 @@
             BlueprintIdentifier = "01CBFD1820DBB390001DBADB"
             BuildableName = "FSImageViewer.framework"
             BlueprintName = "FSImageViewer"
-            ReferencedContainer = "container:FSImageViewer.xcodeproj">
+            ReferencedContainer = "container:FSImageViewerCarthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
